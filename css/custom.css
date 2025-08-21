@@ -1,0 +1,95 @@
+/* Full-screen hero (mobile-safe) */
+:root { --hero-h: 100vh; }
+@supports (height: 100dvh) {
+  :root { --hero-h: 100dvh; }  /* handles mobile browser UI */
+}
+
+/* Navbar offset so anchors don't hide under the fixed nav */
+:root { --nav-h: 24px; }
+html { scroll-padding-top: var(--nav-h); }
+section[id], header[id], footer[id] { scroll-margin-top: var(--nav-h); }
+
+/* Smooth scroll */
+html { scroll-behavior: smooth; }
+
+.hero-section{
+  min-height: var(--hero-h);
+  overflow: hidden;
+  background: radial-gradient(1200px 600px at 70% 20%, rgba(255,255,255,0.1), transparent 70%),
+              radial-gradient(800px 400px at 20% 80%, rgba(255,255,255,0.07), transparent 70%),
+              #0b0e1a;
+}
+.hero-bg{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  filter: blur(0.3px) contrast(110%);
+}
+.hero-section .container{
+  z-index:2;
+}
+.hero-section .display-4{
+  text-shadow: 0 6px 18px rgba(0,0,0,0.6);
+}
+
+.py-4 {
+  padding-top: 2rem !important;
+  padding-bottom: 2rem !important;
+}
+
+.py-5 {
+  padding-top: 4rem !important;
+  padding-bottom: 6rem !important;
+}
+
+.py-6 {
+  padding-top: 6rem !important;
+  padding-bottom: 6rem !important;
+}
+
+.py-8 {
+  padding-top: 8rem !important;
+  padding-bottom: 8rem !important;
+}
+
+/* Little scroll indicator */
+.scroll-down{ position:absolute; bottom:1.5rem; left:50%; transform:translateX(-50%); text-decoration:none; }
+.scroll-down .arrow{
+  display:inline-block; width:14px; height:14px; border-right:2px solid rgba(255,255,255,0.8); border-bottom:2px solid rgba(255,255,255,0.8);
+  transform: rotate(45deg);
+  animation: drop 1.2s infinite;
+}
+@keyframes drop{
+  0%{ transform: translateY(0) rotate(45deg); opacity:1;}
+  80%{ opacity:1;}
+  100%{ transform: translateY(8px) rotate(45deg); opacity:0;}
+}
+
+/* Card hover lift */
+.card-lift{ transition: transform .18s ease, box-shadow .18s ease; }
+.card-lift:hover{ transform: translateY(-4px); box-shadow: 0 1rem 2rem rgba(0,0,0,.12)!important; }
+.icon-wrap{ display:flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:12px; background: rgba(13,110,253,.12); color:#0d6efd; }
+
+/* Back to top button */
+.to-top{
+  position: fixed; right: 1rem; bottom: 1rem; z-index: 1050; display:none;
+  border-radius: 999px; width: 44px; height: 44px; padding:0; line-height:44px; text-align:center;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+}
+
+/* Section spacing tweaks on small screens */
+@media (max-width: 575.98px){
+  .hero-section{ text-align:center; }
+}
+
+/* One-shot bounce that scales up, down, then settles */
+@keyframes welcomePulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.1); }
+  80%  { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+
+.welcome-bounce-once {
+  animation: welcomePulse 2s cubic-bezier(.34,1.56,.64,1) both;
+  will-change: transform;
+}
